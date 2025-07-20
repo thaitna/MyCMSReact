@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const LinksPage = () => {
     const [links, setLinks] = useState([]);
@@ -9,9 +9,7 @@ const LinksPage = () => {
     useEffect(() => {
         const fetchLinks = async () => {
             try {
-                const response = await axios.get('https://localhost:7290/api/links/list', {
-                    headers: { 'Accept-Language': localStorage.getItem('lang') || 'en-US' },
-                });
+                const response = await api.get('/api/links/list');
                 setLinks(response.data || []);
             } catch (err) {
                 setError(err.message);
